@@ -10,4 +10,9 @@ export class SendSmsArgsFixture extends SendSmsArgs {
 
   @Mock((faker) => faker.lorem.sentence())
   declare message: string;
+
+  withEmptyMessage(): this {
+    this.message = '';
+    return this;
+  }
 }

@@ -4,6 +4,9 @@ import { SmsProvider } from '../../../../src/sms';
 import faker from 'faker';
 
 export class MutlucellConfigFixture extends MutlucellConfig {
+  @Mock(SmsProvider.MUTLUCELL)
+  declare provider: SmsProvider;
+
   @Mock((faker) => faker.lorem.word())
   declare username: string;
 

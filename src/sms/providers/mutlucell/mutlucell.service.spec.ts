@@ -114,10 +114,8 @@ describe('MutlucellService', () => {
 
     it('should handle empty message', async () => {
       const emptyMessageArgs = MockFactory(SendSmsArgsFixture)
-        .mutate({
-          message: '',
-        })
-        .one();
+        .one()
+        .withEmptyMessage();
 
       mockFetch.mockResolvedValueOnce({
         ok: true,
