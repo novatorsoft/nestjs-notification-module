@@ -1,14 +1,22 @@
 {
   "name": "nestjs-notification-module",
-  "version": "0.0.1",
-  "description": "",
-  "author": "",
-  "private": true,
+  "version": "1.0.0",
+  "description": "NestJS Notification Module",
+  "author": "Novatorsoft",
+  "private": false,
   "license": "UNLICENSED",
   "main": "dist/index.js",
   "files": [
     "dist",
     "package.json"
+  ],
+  "keywords": [
+    "nestjs",
+    "notification",
+    "module",
+    "sms",
+    "email",
+    "smtp"
   ],
   "scripts": {
     "build": "nest build",
@@ -99,5 +107,13 @@
         "infile": "CHANGELOG.md"
       }
     }
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/novatorsoft/nestjs-notification-module"
+  },
+  "bugs": {
+    "url": "https://github.com/novatorsoft/nestjs-notification-module/issues"
+  },
+  "homepage": "https://github.com/novatorsoft/nestjs-notification-module#readme-module"
 }
