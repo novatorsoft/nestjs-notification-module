@@ -1,5 +1,6 @@
 import { Mock } from 'mockingbird';
-import { MutlucellConfig } from '../../../../src/sms/provider/mutlucell';
+import { MutlucellConfig } from '../../../../src/sms/providers';
+import { SmsProvider } from '../../../../src/sms';
 import faker from 'faker';
 
 export class MutlucellConfigFixture extends MutlucellConfig {
@@ -14,6 +15,11 @@ export class MutlucellConfigFixture extends MutlucellConfig {
 
   withApiUrl(): this {
     this.apiUrl = faker.internet.url();
+    return this;
+  }
+
+  withProvider(): this {
+    this.provider = SmsProvider.MUTLUCELL;
     return this;
   }
 }
