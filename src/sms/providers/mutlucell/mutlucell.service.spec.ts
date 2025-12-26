@@ -113,11 +113,11 @@ describe('MutlucellService', () => {
     });
 
     it('should handle empty message', async () => {
-      const emptyMessageArgs: SendSmsArgs = {
-        countryCode: '+90',
-        phoneNumber: '5551234567',
-        message: '',
-      };
+      const emptyMessageArgs = MockFactory(SendSmsArgsFixture)
+        .mutate({
+          message: '',
+        })
+        .one();
 
       mockFetch.mockResolvedValueOnce({
         ok: true,
@@ -127,6 +127,17 @@ describe('MutlucellService', () => {
       await expect(service.sendAsync(emptyMessageArgs)).rejects.toThrow(
         'Message cannot be empty',
       );
+    });
+
+    it('should handle error and log it', async () => {
+      const sendSmsArgs = MockFactory(SendSmsArgsFixture).one();
+      const error = new Error('Mutlucell Error');
+      mockFetch.mockRejectedValueOnce(error);
+      const loggerSpy = jest.spyOn(service['logger'], 'error');
+
+      await service.sendAsync(sendSmsArgs);
+
+      expect(loggerSpy).toHaveBeenCalledWith(error);
     });
   });
 });

@@ -1,13 +1,13 @@
-import { ConfigType, SmsAsyncConfig } from './config';
 import { DynamicModule, Module } from '@nestjs/common';
 import { MUTLUCELL_CONFIG_KEY, MutlucellService } from './providers';
+import { SmsAsyncConfig, SmsConfigType } from './config';
 
 import { SmsProvider } from './enum';
 import { SmsService } from './sms.service';
 
 @Module({})
 export class SmsModule {
-  static register(config: ConfigType): DynamicModule {
+  static register(config: SmsConfigType): DynamicModule {
     const smsModuleConfig = SmsModule.getSmsProviderModuleConfig(
       config?.provider,
     );
