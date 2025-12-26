@@ -6,14 +6,16 @@ import { MutlucellRequest } from './dto';
 import { parse } from 'js2xmlparser';
 
 @Injectable()
-export class MutlucellService implements SmsService {
+export class MutlucellService extends SmsService {
   private readonly defaultApiUrl =
     'https://smsgw.mutlucell.com/smsgw-ws/sndblkex';
 
   constructor(
     @Inject(MUTLUCELL_CONFIG_KEY)
     private readonly mutlucellConfig: MutlucellConfig,
-  ) {}
+  ) {
+    super();
+  }
 
   async sendAsync(sendSmsArgs: SendSmsArgs): Promise<boolean> {
     if (sendSmsArgs.message.trim().length === 0)
@@ -39,7 +41,8 @@ export class MutlucellService implements SmsService {
         body: xml,
       });
       return true;
-    } catch {
+    } catch (error) {
+      this.logger.error(error);
       return false;
     }
   }
