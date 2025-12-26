@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { SendSmsArgs } from 'src/sms/dto';
 import { SmsService } from '../../sms.service';
-import { MutlucellConfig } from './mutlucell.config';
+import { MUTLUCELL_CONFIG_KEY, MutlucellConfig } from './mutlucell.config';
 import { MutlucellRequest } from './dto';
 import { parse } from 'js2xmlparser';
 
@@ -11,7 +11,7 @@ export class MutlucellService implements SmsService {
     'https://smsgw.mutlucell.com/smsgw-ws/sndblkex';
 
   constructor(
-    @Inject('MutlucellConfig')
+    @Inject(MUTLUCELL_CONFIG_KEY)
     private readonly mutlucellConfig: MutlucellConfig,
   ) {}
 

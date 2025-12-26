@@ -1,5 +1,6 @@
 import * as js2xmlparser from 'js2xmlparser';
 
+import { MUTLUCELL_CONFIG_KEY, MutlucellConfig } from './mutlucell.config';
 import {
   MutlucellConfigFixture,
   SendSmsArgsFixture,
@@ -7,7 +8,6 @@ import {
 import { Test, TestingModule } from '@nestjs/testing';
 
 import { MockFactory } from 'mockingbird';
-import { MutlucellConfig } from './mutlucell.config';
 import { MutlucellService } from './mutlucell.service';
 import { SendSmsArgs } from '../../dto';
 import faker from 'faker';
@@ -32,7 +32,7 @@ describe('MutlucellService', () => {
       providers: [
         MutlucellService,
         {
-          provide: 'MutlucellConfig',
+          provide: MUTLUCELL_CONFIG_KEY,
           useValue: mockConfig,
         },
       ],

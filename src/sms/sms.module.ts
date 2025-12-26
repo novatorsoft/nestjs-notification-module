@@ -1,7 +1,7 @@
 import { ConfigType, SmsAsyncConfig } from './config';
 import { DynamicModule, Module } from '@nestjs/common';
+import { MUTLUCELL_CONFIG_KEY, MutlucellService } from './providers';
 
-import { MutlucellService } from './providers';
 import { SmsProvider } from './enum';
 import { SmsService } from './sms.service';
 
@@ -57,7 +57,7 @@ export class SmsModule {
     const smsModuleConfigs = {
       [SmsProvider.MUTLUCELL]: {
         service: MutlucellService,
-        configKey: 'MutlucellConfig',
+        configKey: MUTLUCELL_CONFIG_KEY,
       },
     };
 
