@@ -101,7 +101,6 @@ describe('SmsModule', () => {
         provider: undefined,
       })
       .one();
-    console.log(smsConfig);
     expect(() => {
       SmsModule.register(smsConfig);
     }).toThrow('Invalid sms provider');
