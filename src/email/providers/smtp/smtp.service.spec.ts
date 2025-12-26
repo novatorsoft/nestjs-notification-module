@@ -30,7 +30,7 @@ describe('SmtpService', () => {
 
     (Nodemailer.createTransport as jest.Mock).mockReturnValue(mockTransporter);
 
-    mockSmtpConfig = MockFactory(SmtpConfigFixture).one();
+    mockSmtpConfig = MockFactory(SmtpConfigFixture).one() as SmtpConfig;
 
     const module: TestingModule = await Test.createTestingModule({
       providers: [

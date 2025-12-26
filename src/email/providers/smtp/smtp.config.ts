@@ -10,7 +10,6 @@ export class SmtpConfig extends EmailConfig {
     user: string;
     password: string;
   };
-  defaultFromAddress?: string;
   port?: number;
   secure?: boolean;
   requireTLS?: boolean;

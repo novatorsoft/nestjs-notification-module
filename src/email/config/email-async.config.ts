@@ -1,9 +1,9 @@
 import { FactoryProvider, ModuleMetadata } from '@nestjs/common';
+import { SendgridConfig, SmtpConfig } from '../providers';
 
 import { EmailConfig } from './email.config';
-import { SmtpConfig } from '../providers';
 
-export type EmailConfigType = SmtpConfig;
+export type EmailConfigType = SmtpConfig | SendgridConfig;
 
 export type EmailAsyncConfig = Pick<ModuleMetadata, 'imports'> &
   Pick<

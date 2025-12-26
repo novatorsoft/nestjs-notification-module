@@ -1,6 +1,11 @@
 import { DynamicModule, Module } from '@nestjs/common';
 import { EmailAsyncConfig, EmailConfigType } from './config';
-import { SMTP_CONFIG_KEY, SmtpService } from './providers';
+import {
+  SENDGRID_CONFIG_KEY,
+  SMTP_CONFIG_KEY,
+  SendgridService,
+  SmtpService,
+} from './providers';
 
 import { EmailProvider } from './enum';
 import { EmailService } from './email.service';
@@ -58,6 +63,10 @@ export class EmailModule {
       [EmailProvider.SMTP]: {
         service: SmtpService,
         configKey: SMTP_CONFIG_KEY,
+      },
+      [EmailProvider.SENDGRID]: {
+        service: SendgridService,
+        configKey: SENDGRID_CONFIG_KEY,
       },
     };
 

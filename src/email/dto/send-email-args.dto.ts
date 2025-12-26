@@ -1,5 +1,5 @@
 export interface Attachment {
-  content: string | Buffer;
+  content: string;
   filename: string;
   type: string;
   disposition?: string;
