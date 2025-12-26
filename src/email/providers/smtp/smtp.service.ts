@@ -30,9 +30,10 @@ export class SmtpService extends EmailService {
   }
 
   async sendAsync(sendEmailArgs: SendEmailArgs): Promise<boolean> {
+    const fromEmail = this.getFromEmail(sendEmailArgs);
     try {
       await this.smtpClient.sendMail({
-        from: this.getFromEmail(sendEmailArgs),
+        from: fromEmail,
         to: sendEmailArgs.to,
         subject: sendEmailArgs.subject,
         html: sendEmailArgs.content,

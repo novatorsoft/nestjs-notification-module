@@ -211,5 +211,15 @@ describe('SmtpService', () => {
 
       expect(loggerSpy).toHaveBeenCalledWith(error);
     });
+
+    it('should throw an error when "from" is missing', async () => {
+      delete mockSmtpConfig.defaultFromAddress;
+      const sendEmailArgs = MockFactory(SendEmailArgsFixture).one();
+
+      await expect(service.sendAsync(sendEmailArgs)).rejects.toThrow(
+        'From address is required',
+      );
+      expect(mockTransporter.sendMail).not.toHaveBeenCalled();
+    });
   });
 });
