@@ -12,7 +12,7 @@ class SmtpAuthFixture {
 
 export class SmtpConfigFixture extends SmtpConfig {
   @Mock(EmailProvider.SMTP)
-  declare provider: EmailProvider;
+  declare provider: EmailProvider.SMTP;
 
   @Mock((faker) => faker.internet.url())
   declare host: string;

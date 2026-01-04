@@ -4,7 +4,7 @@ import { SendgridConfig } from '../../../../src/email/providers/sendgrid/sendgri
 
 export class SendgridConfigFixture extends SendgridConfig {
   @Mock(EmailProvider.SENDGRID)
-  declare provider: EmailProvider;
+  declare provider: EmailProvider.SENDGRID;
 
   @Mock((faker) => faker.datatype.uuid())
   declare apiKey: string;
