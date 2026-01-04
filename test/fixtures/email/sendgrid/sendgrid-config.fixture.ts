@@ -1,7 +1,6 @@
 import { EmailProvider } from '../../../../src/email';
 import { Mock } from 'mockingbird';
 import { SendgridConfig } from '../../../../src/email/providers/sendgrid/sendgrid.config';
-import faker from 'faker';
 
 export class SendgridConfigFixture extends SendgridConfig {
   @Mock(EmailProvider.SENDGRID)
