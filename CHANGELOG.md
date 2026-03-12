@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.1.0](https://github.com/novatorsoft/nestjs-notification-module/compare/v1.0.0...v1.1.0) (2026-03-12)
+
+### Features
+
+* export email module in index file ([66298c3](https://github.com/novatorsoft/nestjs-notification-module/commit/66298c30b9d8889ffffb3519a4fc81d8d5269fa2))
+
 ## 1.0.0 (2025-12-26)
 
 ### Features
