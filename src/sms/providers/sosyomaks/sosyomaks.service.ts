@@ -20,16 +20,20 @@ export class SosyomaksService extends SmsService {
     if (sendSmsArgs.message.trim().length === 0)
       throw new Error('Message cannot be empty');
 
-    const sosyomaksRequest = new SosyomaksRequest(
-      sendSmsArgs.message,
-      sendSmsArgs.phoneNumber.replace(/^0+/, ''),
-      this.sosyomaksConfig.username,
-      this.sosyomaksConfig.password,
-      this.sosyomaksConfig.originator,
-    );
-    const xml = parse('SingleTextSMS', sosyomaksRequest, {
-      declaration: false,
-    });
+    const hasTurkishChars = /[şğıöüçİŞĞÜÖÇ]/.test(sendSmsArgs.message);
+
+    const sosyomaksRequest: SosyomaksRequest = {
+      UserName: this.sosyomaksConfig.username,
+      PassWord: this.sosyomaksConfig.password,
+      Action: hasTurkishChars ? '12' : '0',
+      Mesgbody: sendSmsArgs.message,
+      Numbers: sendSmsArgs.phoneNumber.replace(/^0+/, ''),
+      Originator: this.sosyomaksConfig.originator,
+      SDate: '',
+      ExDate: '',
+    };
+    let xml = parse('SingleTextSMS', sosyomaksRequest);
+    xml = xml.replace(/<\?xml[^?]*\?>\s*/g, '');
     return this.sendRequestAsync(xml);
   }
 
