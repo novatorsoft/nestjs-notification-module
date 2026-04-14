@@ -28,21 +28,32 @@ export class SosyomaksService extends SmsService {
       this.sosyomaksConfig.originator,
     );
     const xml = parse('SingleTextSMS', sosyomaksRequest, {
-      declaration: { encoding: 'UTF-8' },
+      declaration: false,
     });
     return this.sendRequestAsync(xml);
   }
 
   private async sendRequestAsync(xml: string): Promise<boolean> {
     try {
-      await fetch(this.sosyomaksConfig?.apiUrl ?? this.defaultApiUrl, {
-        method: 'POST',
-        body: xml,
-        headers: {
-          'Content-Type': 'application/xml',
+      const response = await fetch(
+        this.sosyomaksConfig?.apiUrl ?? this.defaultApiUrl,
+        {
+          method: 'POST',
+          body: xml,
+          headers: {
+            'Content-Type': 'text/xml',
+          },
         },
-      });
-      return true;
+      );
+      const result = await response.text();
+      
+      if (result.startsWith('ID:')) {
+        this.logger.log(`SMS sent successfully: ${result}`);
+        return true;
+      } else {
+        this.logger.error(`SMS send failed with error code: ${result}`);
+        return false;
+      }
     } catch (error) {
       this.logger.error(error);
       return false;
