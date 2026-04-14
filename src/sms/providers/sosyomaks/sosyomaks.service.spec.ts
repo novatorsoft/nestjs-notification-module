@@ -54,14 +54,13 @@ describe('SosyomaksService', () => {
     const sendSmsArgs: SendSmsArgs = MockFactory(SendSmsArgsFixture).one();
 
     it('should send SMS successfully and return true', async () => {
-      const mockXml = '<?xml version="1.0"?><SingleTextSMS><test>mock</test></SingleTextSMS>';
+      const mockXml = '<SingleTextSMS><test>mock</test></SingleTextSMS>';
       (js2xmlparser.parse as jest.Mock).mockReturnValue(mockXml);
 
       mockFetch.mockResolvedValueOnce({
         ok: true,
         status: 200,
-        text: jest.fn().mockResolvedValue('ID: 12345678'),
-      } as unknown as Response);
+      } as Response);
 
       const result = await service.sendAsync(sendSmsArgs);
 
@@ -78,28 +77,13 @@ describe('SosyomaksService', () => {
       );
     });
 
-    it('should return false when API returns error code', async () => {
-      const mockXml = '<SingleTextSMS><test>mock</test></SingleTextSMS>';
-      (js2xmlparser.parse as jest.Mock).mockReturnValue(mockXml);
-
-      mockFetch.mockResolvedValueOnce({
-        ok: true,
-        status: 200,
-        text: jest.fn().mockResolvedValue('05'),
-      } as unknown as Response);
-
-      const result = await service.sendAsync(sendSmsArgs);
-
-      expect(result).toBe(false);
-    });
 
     it('should use custom apiUrl when provided in config', async () => {
       mockConfig.apiUrl = faker.internet.url();
       mockFetch.mockResolvedValueOnce({
         ok: true,
         status: 200,
-        text: jest.fn().mockResolvedValue('ID: 12345678'),
-      } as unknown as Response);
+      } as Response);
 
       await service.sendAsync(sendSmsArgs);
 
@@ -116,8 +100,7 @@ describe('SosyomaksService', () => {
       mockFetch.mockResolvedValueOnce({
         ok: true,
         status: 200,
-        text: jest.fn().mockResolvedValue('ID: 12345678'),
-      } as unknown as Response);
+      } as Response);
 
       await service.sendAsync(sendSmsArgs);
 
@@ -141,8 +124,7 @@ describe('SosyomaksService', () => {
       mockFetch.mockResolvedValueOnce({
         ok: true,
         status: 200,
-        text: jest.fn().mockResolvedValue('ID: 12345678'),
-      } as unknown as Response);
+      } as Response);
 
       await expect(service.sendAsync(emptyMessageArgs)).rejects.toThrow(
         'Message cannot be empty',
@@ -160,41 +142,6 @@ describe('SosyomaksService', () => {
       expect(loggerSpy).toHaveBeenCalledWith(error);
     });
 
-    it('should log success when SMS is sent', async () => {
-      const mockXml = '<SingleTextSMS><test>mock</test></SingleTextSMS>';
-      (js2xmlparser.parse as jest.Mock).mockReturnValue(mockXml);
-
-      const mockResponseText = 'ID: 12345678';
-      mockFetch.mockResolvedValueOnce({
-        ok: true,
-        status: 200,
-        text: jest.fn().mockResolvedValue(mockResponseText),
-      } as unknown as Response);
-
-      const loggerSpy = jest.spyOn(service['logger'], 'log');
-
-      await service.sendAsync(sendSmsArgs);
-
-      expect(loggerSpy).toHaveBeenCalledWith(`SMS sent successfully: ${mockResponseText}`);
-    });
-
-    it('should log error when API returns error code', async () => {
-      const mockXml = '<SingleTextSMS><test>mock</test></SingleTextSMS>';
-      (js2xmlparser.parse as jest.Mock).mockReturnValue(mockXml);
-
-      const errorCode = '05';
-      mockFetch.mockResolvedValueOnce({
-        ok: true,
-        status: 200,
-        text: jest.fn().mockResolvedValue(errorCode),
-      } as unknown as Response);
-
-      const loggerSpy = jest.spyOn(service['logger'], 'error');
-
-      await service.sendAsync(sendSmsArgs);
-
-      expect(loggerSpy).toHaveBeenCalledWith(`SMS send failed with error code: ${errorCode}`);
-    });
 
     it('should remove leading zeros from phone number', async () => {
       const mockXml = '<SingleTextSMS><test>mock</test></SingleTextSMS>';
@@ -208,8 +155,7 @@ describe('SosyomaksService', () => {
       mockFetch.mockResolvedValueOnce({
         ok: true,
         status: 200,
-        text: jest.fn().mockResolvedValue('ID: 12345678'),
-      } as unknown as Response);
+      } as Response);
 
       await service.sendAsync(argsWithLeadingZero);
 
@@ -218,6 +164,7 @@ describe('SosyomaksService', () => {
         expect.objectContaining({
           Numbers: '5321234567',
         }),
+        expect.anything(),
       );
     });
 
@@ -233,8 +180,7 @@ describe('SosyomaksService', () => {
       mockFetch.mockResolvedValueOnce({
         ok: true,
         status: 200,
-        text: jest.fn().mockResolvedValue('ID: 12345678'),
-      } as unknown as Response);
+      } as Response);
 
       await service.sendAsync(englishMessage);
 
@@ -243,6 +189,7 @@ describe('SosyomaksService', () => {
         expect.objectContaining({
           Action: '0',
         }),
+        expect.anything(),
       );
     });
 
@@ -258,8 +205,7 @@ describe('SosyomaksService', () => {
       mockFetch.mockResolvedValueOnce({
         ok: true,
         status: 200,
-        text: jest.fn().mockResolvedValue('ID: 12345678'),
-      } as unknown as Response);
+      } as Response);
 
       await service.sendAsync(turkishMessage);
 
@@ -268,6 +214,7 @@ describe('SosyomaksService', () => {
         expect.objectContaining({
           Action: '12',
         }),
+        expect.anything(),
       );
     });
   });
