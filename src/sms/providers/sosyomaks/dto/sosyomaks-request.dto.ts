@@ -5,8 +5,8 @@ export class SosyomaksRequest {
   Mesgbody: string;
   Numbers: string;
   Originator: string;
-  SDate?: string;
-  ExDate?: string;
+  SDate: string;
+  ExDate: string;
 
   constructor(
     message: string,
@@ -15,8 +15,8 @@ export class SosyomaksRequest {
     password: string,
     originator: string,
     action = '0',
-    sdate?: string,
-    exdate?: string,
+    sdate = '',
+    exdate = '',
   ) {
     this.UserName = username;
     this.PassWord = password;
@@ -24,7 +24,7 @@ export class SosyomaksRequest {
     this.Mesgbody = message;
     this.Numbers = phoneNumber;
     this.Originator = originator;
-    if (sdate) this.SDate = sdate;
-    if (exdate) this.ExDate = exdate;
+    this.SDate = sdate;
+    this.ExDate = exdate;
   }
 }
