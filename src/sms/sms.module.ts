@@ -1,5 +1,10 @@
 import { DynamicModule, Module } from '@nestjs/common';
-import { MUTLUCELL_CONFIG_KEY, MutlucellService } from './providers';
+import {
+  MUTLUCELL_CONFIG_KEY,
+  MutlucellService,
+  SOSYOMAKS_CONFIG_KEY,
+  SosyomaksService,
+} from './providers';
 import { SmsAsyncConfig, SmsConfigType } from './config';
 
 import { SmsProvider } from './enum';
@@ -58,6 +63,10 @@ export class SmsModule {
       [SmsProvider.MUTLUCELL]: {
         service: MutlucellService,
         configKey: MUTLUCELL_CONFIG_KEY,
+      },
+      [SmsProvider.SOSYOMAKS]: {
+        service: SosyomaksService,
+        configKey: SOSYOMAKS_CONFIG_KEY,
       },
     };
 
