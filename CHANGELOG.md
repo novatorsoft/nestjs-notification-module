@@ -1,5 +1,14 @@
 # Changelog
 
+* Merge pull request #1 from novatorsoft/feature/add-sosyomaks-sms-provider (7c300e1)
+* refactor: remove empty message validation and streamline SosyomaksService request handling (b9cedb7)
+* refactor: simplify XML parsing and remove redundant response handling in SosyomaksService (47ab5b7)
+* feat: add unit tests for SosyomaksService to validate SMS sending functionality (f4744a4)
+* fix: update SosyomaksRequest DTO to require SDate and ExDate fields (a2267b1)
+* feat: add Sosyomaks SMS request handling and response logging (50a663a)
+* feat: add Sosyomaks SMS provider support (d841185)
+* chore: sync license and package.json with root version (4ef6d55)
+
 ## [1.1.0](https://github.com/novatorsoft/nestjs-notification-module/compare/v1.0.0...v1.1.0) (2026-03-12)
 
 ### Features
