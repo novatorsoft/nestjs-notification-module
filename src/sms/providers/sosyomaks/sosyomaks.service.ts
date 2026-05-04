@@ -17,30 +17,25 @@ export class SosyomaksService extends SmsService {
   }
 
   async sendAsync(sendSmsArgs: SendSmsArgs): Promise<boolean> {
-    if (sendSmsArgs.message.trim().length === 0)
-      throw new Error('Message cannot be empty');
-
     const hasTurkishChars = /[şğıöüçİŞĞÜÖÇ]/.test(sendSmsArgs.message);
 
-    const sosyomaksRequest: SosyomaksRequest = {
+    return this.sendRequestAsync({
       UserName: this.sosyomaksConfig.username,
       PassWord: this.sosyomaksConfig.password,
       Action: hasTurkishChars ? '12' : '0',
       Mesgbody: sendSmsArgs.message,
       Numbers: sendSmsArgs.phoneNumber.replace(/^0+/, ''),
       Originator: this.sosyomaksConfig.originator,
-      SDate: '',
-      ExDate: '',
-    };
-    let xml = parse('SingleTextSMS', sosyomaksRequest, {
-      declaration: { encoding: 'UTF-8' },
     });
-    xml = xml.replaceAll(/<\?xml[^?]*\?>\s*/g, '');
-    return this.sendRequestAsync(xml);
   }
 
-  private async sendRequestAsync(xml: string): Promise<boolean> {
+  private async sendRequestAsync(
+    sosyomaksRequest: SosyomaksRequest,
+  ): Promise<boolean> {
     try {
+      const xml = parse('SingleTextSMS', sosyomaksRequest, {
+        declaration: { encoding: 'UTF-8' },
+      }).replaceAll(/<\?xml[^?]*\?>\s*/g, '');
       await fetch(this.sosyomaksConfig?.apiUrl ?? this.defaultApiUrl, {
         method: 'POST',
         body: xml,

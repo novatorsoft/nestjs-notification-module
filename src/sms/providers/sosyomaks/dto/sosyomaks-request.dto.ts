@@ -5,6 +5,4 @@ export class SosyomaksRequest {
   Mesgbody: string;
   Numbers: string;
   Originator: string;
-  SDate: string;
-  ExDate: string;
 }

@@ -2,14 +2,14 @@ import * as js2xmlparser from 'js2xmlparser';
 
 import { SOSYOMAKS_CONFIG_KEY, SosyomaksConfig } from './sosyomaks.config';
 import {
-  SosyomaksConfigFixture,
   SendSmsArgsFixture,
+  SosyomaksConfigFixture,
 } from '../../../../test/fixtures';
 import { Test, TestingModule } from '@nestjs/testing';
 
 import { MockFactory } from 'mockingbird';
-import { SosyomaksService } from './sosyomaks.service';
 import { SendSmsArgs } from '../../dto';
+import { SosyomaksService } from './sosyomaks.service';
 import faker from 'faker';
 
 jest.mock('js2xmlparser', () => ({
@@ -77,7 +77,6 @@ describe('SosyomaksService', () => {
       );
     });
 
-
     it('should use custom apiUrl when provided in config', async () => {
       mockConfig.apiUrl = faker.internet.url();
       mockFetch.mockResolvedValueOnce({
@@ -116,21 +115,6 @@ describe('SosyomaksService', () => {
       expect(mockFetch).toHaveBeenCalledTimes(1);
     });
 
-    it('should handle empty message', async () => {
-      const emptyMessageArgs = MockFactory(SendSmsArgsFixture)
-        .one()
-        .withEmptyMessage();
-
-      mockFetch.mockResolvedValueOnce({
-        ok: true,
-        status: 200,
-      } as Response);
-
-      await expect(service.sendAsync(emptyMessageArgs)).rejects.toThrow(
-        'Message cannot be empty',
-      );
-    });
-
     it('should handle error and log it', async () => {
       const sendSmsArgs = MockFactory(SendSmsArgsFixture).one();
       const error = new Error('Sosyomaks Error');
@@ -141,7 +125,6 @@ describe('SosyomaksService', () => {
 
       expect(loggerSpy).toHaveBeenCalledWith(error);
     });
-
 
     it('should remove leading zeros from phone number', async () => {
       const mockXml = '<SingleTextSMS><test>mock</test></SingleTextSMS>';
