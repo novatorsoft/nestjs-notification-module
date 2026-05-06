@@ -33,9 +33,13 @@ export class SosyomaksService extends SmsService {
     sosyomaksRequest: SosyomaksRequest,
   ): Promise<boolean> {
     try {
-      const xml = parse('SingleTextSMS', sosyomaksRequest, {
-        declaration: { encoding: 'UTF-8' },
-      }).replaceAll(/<\?xml[^?]*\?>\s*/g, '');
+      const xml = parse(
+        'SingleTextSMS',
+        { ...sosyomaksRequest, SDate: '', ExDate: '' },
+        {
+          declaration: { encoding: 'UTF-8' },
+        },
+      ).replaceAll(/<\?xml[^?]*\?>\s*/g, '');
       await fetch(this.sosyomaksConfig?.apiUrl ?? this.defaultApiUrl, {
         method: 'POST',
         body: xml,
