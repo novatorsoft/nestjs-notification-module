@@ -1,6 +1,6 @@
 {
   "name": "nestjs-notification-module",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "description": "NestJS Notification Module",
   "author": "Novatorsoft",
   "private": false,

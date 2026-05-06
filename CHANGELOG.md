@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.2.1](https://github.com/novatorsoft/nestjs-notification-module/compare/v1.2.0...v1.2.1) (2026-05-06)
+
+### Bug Fixes
+
+* update XML parsing in SosyomaksService to clear SDate and ExDate fields ([1354f70](https://github.com/novatorsoft/nestjs-notification-module/commit/1354f70fcd2c9c1bec790c8f6a9f1a7c5e2aca51))
+
 ## [1.2.0](https://github.com/novatorsoft/nestjs-notification-module/compare/v1.1.0...v1.2.0) (2026-05-04)
 
 ### Features
