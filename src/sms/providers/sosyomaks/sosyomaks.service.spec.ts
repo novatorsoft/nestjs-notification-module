@@ -71,7 +71,7 @@ describe('SosyomaksService', () => {
         expect.objectContaining({
           method: 'POST',
           headers: {
-            'Content-Type': 'text/xml',
+            'Content-Type': 'application/xml',
           },
         }),
       );
@@ -124,6 +124,34 @@ describe('SosyomaksService', () => {
       await service.sendAsync(sendSmsArgs);
 
       expect(loggerSpy).toHaveBeenCalledWith(error);
+    });
+
+    it('should return false when API returns non-ok status', async () => {
+      mockFetch.mockResolvedValueOnce({
+        ok: false,
+        status: 500,
+        statusText: 'Internal Server Error',
+      } as Response);
+
+      const result = await service.sendAsync(sendSmsArgs);
+
+      expect(result).toBe(false);
+      expect(mockFetch).toHaveBeenCalledTimes(1);
+    });
+
+    it('should log error when API returns non-ok status', async () => {
+      mockFetch.mockResolvedValueOnce({
+        ok: false,
+        status: 400,
+        statusText: 'Bad Request',
+      } as Response);
+      const loggerSpy = jest.spyOn(service['logger'], 'error');
+
+      await service.sendAsync(sendSmsArgs);
+
+      expect(loggerSpy).toHaveBeenCalledWith(
+        'Sosyomaks API returned status 400 and message Bad Request',
+      );
     });
 
     it('should remove leading zeros from phone number', async () => {

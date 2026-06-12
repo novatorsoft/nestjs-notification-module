@@ -40,13 +40,22 @@ export class SosyomaksService extends SmsService {
           declaration: { encoding: 'UTF-8' },
         },
       ).replaceAll(/<\?xml[^?]*\?>\s*/g, '');
-      await fetch(this.sosyomaksConfig?.apiUrl ?? this.defaultApiUrl, {
-        method: 'POST',
-        body: xml,
-        headers: {
-          'Content-Type': 'text/xml',
+      const response = await fetch(
+        this.sosyomaksConfig?.apiUrl ?? this.defaultApiUrl,
+        {
+          method: 'POST',
+          body: xml,
+          headers: {
+            'Content-Type': 'application/xml',
+          },
         },
-      });
+      );
+      if (!response.ok) {
+        this.logger.error(
+          `Sosyomaks API returned status ${response.status} and message ${response.statusText}`,
+        );
+        return false;
+      }
       return true;
     } catch (error) {
       this.logger.error(error);
