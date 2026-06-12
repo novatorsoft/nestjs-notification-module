@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.2.2](https://github.com/novatorsoft/nestjs-notification-module/compare/v1.2.1...v1.2.2) (2026-06-12)
+
+### Bug Fixes
+
+* update Content-Type header to application/xml and add error handling for non-ok API responses in SosyomaksService ([5c4aaec](https://github.com/novatorsoft/nestjs-notification-module/commit/5c4aaecb0e3eafd48b9c8973efbdacf5f99492fa))
+
 ## [1.2.1](https://github.com/novatorsoft/nestjs-notification-module/compare/v1.2.0...v1.2.1) (2026-05-06)
 
 ### Bug Fixes
